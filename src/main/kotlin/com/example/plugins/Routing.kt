@@ -49,7 +49,7 @@ fun Application.configureRouting() {
                 .withIssuer(environment.config.property("jwt.domain").getString())
                 .withClaim("username", user.username)
                 .withExpiresAt(Date(System.currentTimeMillis() + 60000))
-                .sign(Algorithm.HMAC256("secret"))
+                .sign(Algorithm.HMAC256(environment.config.property("jwt.secret").getString()))
             call.respond(hashMapOf("token" to token))
         }
 
